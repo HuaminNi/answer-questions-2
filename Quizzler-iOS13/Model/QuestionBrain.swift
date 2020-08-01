@@ -26,6 +26,7 @@ struct QuestionBrain {
     ]
     
     var questionNumber = 0
+    var userScore = 0
     
     func checkAnswer(userAnswer:String) -> Bool{
         if userAnswer == questionArray[questionNumber].answer {
@@ -43,13 +44,20 @@ struct QuestionBrain {
         return Float(questionNumber) / Float(questionArray.count)
     }
     
-    mutating func nextQuestion(){
+    mutating func nextQuestion() -> Bool{
         if questionNumber + 1 < questionArray.count {
             questionNumber += 1
-            
+            return false
             
         }else{
+            userScore = -1
             questionNumber = 0
+            return true
         }
+    }
+    
+    mutating func getScore() -> Int {
+        userScore += 1
+        return userScore
     }
 }

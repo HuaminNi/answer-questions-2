@@ -10,6 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var progressBar: UIProgressView!
     
     @IBOutlet weak var questionLabel: UILabel!
@@ -31,6 +32,7 @@ class ViewController: UIViewController {
         
         if userGotItRight {
             sender.backgroundColor = UIColor.green //答对绿色
+            scoreLabel.text = "Score: \(quizBrain.getScore())"
         }else {
             sender.backgroundColor = UIColor.red //答错红色
         }
@@ -41,7 +43,10 @@ class ViewController: UIViewController {
 //        }else{
 //            sender.backgroundColor = UIColor.red //答错红色
 //        }
-        quizBrain.nextQuestion()
+        let begin = quizBrain.nextQuestion()
+        if(begin){
+            scoreLabel.text = "Score: \(quizBrain.getScore())"
+        }
         
         
         Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(showQuestion), userInfo:nil, repeats: false)
